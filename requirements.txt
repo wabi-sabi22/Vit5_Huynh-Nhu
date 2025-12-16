@@ -1,0 +1,13 @@
+streamlit
+fastapi
+uvicorn
+requests
+pydantic
+python-dotenv
+google-genai
+pdfplumber
+python-docx
+transformers
+torch
+langdetect
+peft 

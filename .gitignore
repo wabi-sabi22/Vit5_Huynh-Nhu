@@ -1,0 +1,13 @@
+# Thư mục môi trường ảo (Rất quan trọng)
+chatbot_v2_env/ 
+env/
+venv/
+.venv/
+
+# File Python biên dịch và tạm thời
+__pycache__/
+*.pyc
+
+# Các file hệ thống và log
+.DS_Store
+*.log
