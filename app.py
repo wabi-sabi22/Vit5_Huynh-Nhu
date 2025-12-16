@@ -4,7 +4,7 @@ import streamlit as st
 import requests
 
 #  CẤU HÌNH 
-BACKEND_URL = "http://127.0.0.1:8000"
+BACKEND_URL = "https://vit5-huynh-nhu.onrender.com"
 
 # HÀM HỖ TRỢ (HELPER FUNCTIONS) 
 def call_backend_api(endpoint, json_data=None, files=None):
