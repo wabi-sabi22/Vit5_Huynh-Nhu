@@ -1,0 +1,26 @@
+# Sử dụng image Python 3.10-slim làm base image.
+FROM python:3.10-slim
+
+# Thiết lập các biến môi trường
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Tạo thư mục làm việc
+WORKDIR /app
+
+# Copy file requirements.txt
+COPY requirements.txt /app/
+
+# Cài đặt các thư viện Python
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install -r requirements.txt
+
+# Copy toàn bộ code dự án vào container (bao gồm cả app.py)
+COPY . /app/
+
+# Lệnh khởi động Streamlit
+# Lưu ý:
+#   - Cloud Run yêu cầu ứng dụng lắng nghe trên cổng 8080.
+#   - Chúng ta phải dùng lệnh '--server.port 8080' để buộc Streamlit chạy trên cổng này.
+#   - Thêm '--server.enableCORS false' để tránh các vấn đề về CORS khi gọi API.
+CMD ["streamlit", "run", "app.py", "--server.port", "8080", "--server.enableCORS", "false"]

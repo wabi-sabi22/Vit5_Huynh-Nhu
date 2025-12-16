@@ -1,0 +1,26 @@
+# Sử dụng image Python 3.10-slim làm base image.
+# Image này nhỏ gọn, tối ưu cho môi trường production.
+FROM python:3.10-slim
+
+# Thiết lập các biến môi trường cho Python
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Tạo thư mục làm việc trong container
+WORKDIR /app
+
+# Copy file requirements.txt (chứa danh sách thư viện) vào thư mục làm việc
+COPY requirements.txt /app/
+
+# Cài đặt các thư viện Python (pip install)
+# Dùng --no-cache-dir để giảm kích thước image
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install -r requirements.txt
+
+# Copy toàn bộ code dự án (bao gồm main.py, các mô hình,...) vào container
+COPY . /app/
+
+# Lệnh khởi động Server FastAPI bằng Uvicorn
+# Lưu ý: Cloud Run yêu cầu ứng dụng phải lắng nghe trên cổng 8080 (biến môi trường PORT)
+# Giả định file FastAPI của bạn là 'main.py' và instance FastAPI là 'app'
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
